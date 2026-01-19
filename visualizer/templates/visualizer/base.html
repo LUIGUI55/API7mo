@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Dashboard | {% block title %}Home{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-color: #e2e8f0;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: 1px solid rgba(255, 255, 255, 0.1);
+            --accent: #38bdf8;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Outfit', sans-serif;
+            background-image: radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%), radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%), radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+            min-height: 100vh;
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: var(--card-border);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            color: var(--accent) !important;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-link {
+            color: #94a3b8 !important;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #fff !important;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0ea5e9 0%, #38bdf8 100%);
+            border: none;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.5);
+            transform: translateY(-1px);
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-weight: 600;
+        }
+
+        .sidebar {
+            height: calc(100vh - 56px);
+            position: fixed;
+            top: 56px;
+            left: 0;
+            width: 250px;
+            padding: 20px;
+            background: rgba(15, 23, 42, 0.5);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home' %}">Antigravity ML</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/LUIGUI55" target="_blank">GitHub</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid" style="margin-top: 56px;">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 d-none d-md-block sidebar">
+                <h5 class="text-white-50 mb-4 text-uppercase fs-6 ls-1">Modelos</h5>
+                <div class="nav flex-column nav-pills">
+                    <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %} mb-2"
+                        href="{% url 'home' %}">Resumen</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'kmeans' %}active{% endif %} mb-2"
+                        href="{% url 'kmeans' %}">K-Means</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'dbscan' %}active{% endif %} mb-2"
+                        href="{% url 'dbscan' %}">DBSCAN</a>
+                    <a class="nav-link {% if request.resolver_match.url_name == 'naive_bayes' %}active{% endif %} mb-2"
+                        href="{% url 'naive_bayes' %}">Naive Bayes</a>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <main class="col-md-10 offset-md-2 main-content">
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+{% extends 'visualizer/base.html' %}
+
+{% block content %}
+<div class="row align-items-center justify-content-center text-center" style="min-height: 80vh;">
+    <div class="col-lg-8">
+        <h1 class="display-3 mb-4 fw-bold"
+            style="background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+            Visualizador de Machine Learning</h1>
+        <p class="lead mb-5 text-light-50">Explora visualizaciones interactivas de los algoritmos K-Means, DBSCAN y
+            Naive Bayes aplicados a la detección de fraudes y clasificación de SPAM.</p>
+
+        <div class="row g-4 justify-content-center">
+            <div class="col-md-4">
+                <div class="glass-card p-4 h-100">
+                    <h5 class="text-white mb-3">K-Means</h5>
+                    <p class="small text-muted mb-4">Clustering no supervisado para detección de fraude bancario.</p>
+                    <a href="{% url 'kmeans' %}" class="btn btn-primary d-block">Ver Gráfica</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="glass-card p-4 h-100">
+                    <h5 class="text-white mb-3">DBSCAN</h5>
+                    <p class="small text-muted mb-4">Clustering basado en densidad para anomalías en tarjetas de
+                        crédito.</p>
+                    <a href="{% url 'dbscan' %}" class="btn btn-primary d-block">Ver Gráfica</a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="glass-card p-4 h-100">
+                    <h5 class="text-white mb-3">Naive Bayes</h5>
+                    <p class="small text-muted mb-4">Clasificador probabilístico para filtrado de SPAM.</p>
+                    <a href="{% url 'naive_bayes' %}" class="btn btn-primary d-block">Ver Gráfica</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

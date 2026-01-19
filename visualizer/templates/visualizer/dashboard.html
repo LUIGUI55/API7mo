@@ -1,0 +1,30 @@
+{% extends 'visualizer/base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-white">{{ title }}</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="glass-card p-4 text-center">
+                {% if desc %}
+                <p class="text-start text-muted mb-4" style="max-width: 800px;">{{ desc }}</p>
+                {% endif %}
+
+                <div class="graph-container bg-white rounded-3 p-2 d-inline-block"
+                    style="max-width: 100%; overflow: hidden;">
+                    {% if graph %}
+                    <img src="data:image/png;base64,{{ graph }}" alt="{{ title }}" class="img-fluid rounded">
+                    {% else %}
+                    <p>No graph generated.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
