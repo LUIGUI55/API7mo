@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .utils import generate_kmeans_graph, generate_dbscan_graph, generate_naive_bayes_graph
+from .utils import generate_kmeans_graph, generate_dbscan_graph, generate_naive_bayes_graph, predict_spam
 
 def home(request):
     return render(request, 'visualizer/home.html')
@@ -16,5 +16,18 @@ def dbscan_view(request):
 
 def naive_bayes_view(request):
     graph = generate_naive_bayes_graph()
-    context = {'graph': graph, 'title': 'Clasificación Naive Bayes', 'desc': 'Rendimiento del clasificador Naive Bayes (Matriz de Confusión) en la detección de correos SPAM.'}
+    prediction = None
+    
+    if request.method == 'POST':
+        text_to_check = request.POST.get('text_to_check')
+        if text_to_check:
+            prediction = predict_spam(text_to_check)
+            
+    context = {
+        'graph': graph, 
+        'title': 'Clasificación Naive Bayes', 
+        'desc': 'Rendimiento del clasificador Naive Bayes (Matriz de Confusión) en la detección de correos SPAM.',
+        'show_prediction': True,
+        'prediction': prediction
+    }
     return render(request, 'visualizer/dashboard.html', context)

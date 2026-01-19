@@ -10,6 +10,9 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 from sklearn.decomposition import PCA
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.pipeline import make_pipeline
 
 def get_graph():
     buffer = BytesIO()
@@ -105,3 +108,25 @@ def generate_naive_bayes_graph():
     plt.tight_layout()
     
     return get_graph()
+
+def predict_spam(text):
+    # Entrenar un modelo simple al vuelo para demostración
+    # En producción, esto cargaría un modelo persistido (pickle/joblib)
+    data = [
+        "Win money now", "Free prize", "Click here for reward", "Viagra cheap", "Generic Cialis", 
+        "Limited time offer", "You won lottery", "Urgent business proposition", "Make cash fast",
+        "Meeting at 3pm", "Hello friend", "How are you?", "Project report due", "Lunch tomorrow?",
+        "See you later", "Can we talk?", "Happy birthday", "Meeting agenda"
+    ]
+    labels = [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    
+    model = make_pipeline(CountVectorizer(), MultinomialNB())
+    model.fit(data, labels)
+    
+    prediction = model.predict([text])[0]
+    proba = model.predict_proba([text])[0]
+    
+    return {
+        'is_spam': bool(prediction == 1),
+        'confidence': round(max(proba) * 100, 2)
+    }
